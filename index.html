@@ -1,352 +1,260 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="th" class="scroll-smooth">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#0ea5e9" />
-  <title>Bangkok Street Performer Community Band – August 2025</title>
-  <meta name="description" content="เปิดรับสมัครวงดนตรี Full Band แสดงที่ MBK Center – Bangkok Street Performer Community Band (ส.ค. 2568). สมัครได้หลายวันหรือครบทั้ง 4 วัน พร้อมช่วงเวลาให้เลือก!" />
-
-  <!-- Tailwind CSS CDN -->
+  <title>OSOTHO & FRIENDS Garden Fair — 65 ปี อ.ส.ท.</title>
+  <meta name="description" content="ฉลอง 65 ปี อ.ส.ท. กับงานแฟร์รักษ์โลก OSOTHO & FRIENDS Garden Fair ที่มิวเซียมสยาม 15–17 ส.ค. 2568 เข้าชมฟรี" />
+  <!-- Tailwind via CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    // Tailwind config: Thai fonts + animations
     tailwind.config = {
+      darkMode: 'class',
       theme: {
         extend: {
-          fontFamily: {
-            thai: ["Noto Sans Thai", "Prompt", "Sarabun", "ui-sans-serif", "system-ui"],
-          },
-          backgroundImage: {
-            'radial': 'radial-gradient(40% 40% at 50% 50%, rgba(14,165,233,0.25), transparent 60%)',
-            'grid': 'linear-gradient(to right, rgba(255,255,255,0.07) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.07) 1px, transparent 1px)'
-          },
-          keyframes: {
-            float: { '0%,100%': { transform: 'translateY(0px)' }, '50%': { transform: 'translateY(-8px)' } },
-            pulseGlow: {
-              '0%, 100%': { boxShadow: '0 0 0 0 rgba(59,130,246,0.6)' },
-              '50%': { boxShadow: '0 0 40px 6px rgba(59,130,246,0.35)' }
-            },
-            gradientShift: {
-              '0%': { backgroundPosition: '0% 50%' },
-              '50%': { backgroundPosition: '100% 50%' },
-              '100%': { backgroundPosition: '0% 50%' }
-            }
-          },
-          animation: {
-            float: 'float 4s ease-in-out infinite',
-            pulseGlow: 'pulseGlow 3s ease-in-out infinite',
-            gradientShift: 'gradientShift 12s ease infinite'
+          colors: {
+            paper: '#f7f3ea'
           }
         }
-      },
-      darkMode: 'class'
+      }
     }
   </script>
-  <!-- Google Fonts: Thai -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-
+  <!-- Lucide icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
   <style>
-    /* Background animated gradient */
-    .bg-animated {
-      background: linear-gradient(120deg, #0ea5e9, #22c55e, #a855f7, #f59e0b);
-      background-size: 300% 300%;
-    }
-    /* Subtle grid overlay */
-    .grid-overlay {
-      background-size: 24px 24px;
-      mask-image: radial-gradient(circle at center, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.9) 70%);
-    }
-    /* Floating musical notes */
-    .notes span { position: absolute; opacity: .6; font-size: 18px; animation: drift 12s linear infinite; }
-    @keyframes drift { from { transform: translateY(0) translateX(0) rotate(0deg); } to { transform: translateY(-140vh) translateX(10vw) rotate(12deg); } }
+    /* Masonry helper */
+    .masonry { column-gap: .75rem; }
+    .masonry > * { break-inside: avoid; margin-bottom: .75rem; }
+    /* Smooth fade/slide */
+    .fade-up { opacity: 0; transform: translateY(8px); transition: .6s ease; }
+    .fade-up.show { opacity: 1; transform: translateY(0); }
   </style>
 </head>
-<body class="font-thai bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100 selection:bg-cyan-200 selection:text-slate-900">
-  <!-- Dark Mode: load saved preference early -->
-  <script>
-    (function(){
-      const saved = localStorage.getItem('theme');
-      if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        document.documentElement.classList.add('dark');
-      }
-    })();
-  </script>
-
-  <!-- Header -->
-  <header class="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-slate-900/60 border-b border-white/20 dark:border-slate-800">
-    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <div class="w-9 h-9 rounded-xl bg-animated animate-gradientShift"></div>
-        <div>
-          <p class="text-xs uppercase tracking-widest text-cyan-600 dark:text-cyan-400">Bangkok Street Performer</p>
-          <h1 class="text-base font-extrabold">Community Band – August 2025</h1>
-        </div>
-      </div>
-      <div class="flex items-center gap-3">
-        <a href="#apply" class="hidden sm:inline-flex px-4 py-2 rounded-xl bg-cyan-600 text-white hover:bg-cyan-500 transition">สมัครเลย</a>
-        <button id="themeToggle" class="inline-flex items-center gap-2 px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 transition" aria-label="Toggle color mode">
-          <svg id="sun" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v2m0 14v2m9-9h-2M5 12H3m15.364 6.364l-1.414-1.414M7.05 7.05 5.636 5.636m12.728 0-1.414 1.414M7.05 16.95l-1.414 1.414"/><circle cx="12" cy="12" r="4"/></svg>
-          <svg id="moon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 dark:hidden" fill="currentColor" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79Z"/></svg>
-        </button>
-      </div>
+<body class="bg-paper text-neutral-900 selection:bg-emerald-200/60">
+  <!-- NAV -->
+  <header class="sticky top-0 z-50 backdrop-blur bg-white/70 dark:bg-neutral-900/60 border-b border-black/5 dark:border-white/10 transition-colors">
+    <div class="max-w-6xl mx-auto flex items-center justify-between px-4 sm:px-6 py-3">
+      <a href="#home" class="flex items-center gap-2 font-semibold tracking-wide">
+        <i data-lucide="leaf" class="w-5 h-5"></i>
+        <span>OSOTHO 65 · Garden Fair</span>
+      </a>
+      <nav class="hidden md:flex items-center text-sm">
+        <a href="#market" class="px-3 py-2 hover:underline underline-offset-4">Market</a>
+        <a href="#workshops" class="px-3 py-2 hover:underline underline-offset-4">Workshops</a>
+        <a href="#talks" class="px-3 py-2 hover:underline underline-offset-4">Friend Talk</a>
+        <a href="#music" class="px-3 py-2 hover:underline underline-offset-4">Mini Concert</a>
+        <a href="#gallery" class="px-3 py-2 hover:underline underline-offset-4">Gallery</a>
+        <a href="#info" class="px-3 py-2 hover:underline underline-offset-4">Info</a>
+      </nav>
+      <button id="themeToggle" class="inline-flex items-center gap-2 rounded-full border px-3 py-1 text-sm hover:bg-black/5 dark:hover:bg-white/10">
+        <i data-lucide="moon" class="w-4 h-4"></i>
+        <span class="hidden sm:inline">Dark</span>
+      </button>
     </div>
   </header>
 
-  <!-- Hero -->
-  <section class="relative overflow-hidden">
-    <div class="absolute inset-0 bg-animated animate-gradientShift opacity-20"></div>
-    <div class="absolute inset-0 bg-radial"></div>
-    <div class="absolute inset-0 grid-overlay bg-grid pointer-events-none"></div>
-
-    <!-- floating notes -->
-    <div class="notes pointer-events-none select-none">
-      <span style="left:10%; bottom:-10%; animation-delay:0s">♪</span>
-      <span style="left:30%; bottom:-20%; animation-delay:2s">♫</span>
-      <span style="left:55%; bottom:-15%; animation-delay:4s">♬</span>
-      <span style="left:75%; bottom:-18%; animation-delay:6s">♩</span>
-    </div>
-
-    <div class="max-w-6xl mx-auto px-4 py-14 sm:py-18 md:py-24">
-      <div class="grid md:grid-cols-2 gap-8 items-center">
-        <div>
-          <p class="inline-flex items-center gap-2 text-xs tracking-widest uppercase text-cyan-700 dark:text-cyan-300 mb-3">
-            <span class="w-2.5 h-2.5 rounded-full bg-cyan-500 animate-ping"></span> เปิดรับสมัครแล้ว – ลงได้หลายวัน หรือครบทั้ง 4 วัน
-          </p>
-          <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight">
-            Bangkok Street Performer <span class="text-cyan-600 dark:text-cyan-400">Community Band</span>
-          </h2>
-          <p class="mt-4 text-lg text-slate-600 dark:text-slate-300">Subproject ร่วมกับ MBK Center x Young Full Band Music Festival – เปิดโอกาสให้วง <strong>Full Band (4 คนขึ้นไป)</strong> ใช้เครื่องดนตรีและอุปกรณ์ร่วมกัน แสดงได้มากกว่า 1 วง ต่อ 1 การจองเวลา</p>
-
-          <div class="mt-6 flex flex-wrap gap-3">
-            <a id="apply" href="https://docs.google.com/forms/d/e/1FAIpQLSd3f2rn8N-UGV_oJpYt4AKfzUfMoeoe5uyYfzNRO3EnhpPTsw/viewform" target="_blank" rel="noopener" class="px-5 py-3 rounded-2xl bg-cyan-600 text-white font-semibold shadow hover:shadow-lg hover:bg-cyan-500 transition animate-pulseGlow">สมัคร / จองเวลา</a>
-            <a href="#schedule" class="px-5 py-3 rounded-2xl border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 transition">ดูตารางแสดง</a>
-          </div>
-
-          <ul class="mt-6 text-sm text-slate-500 dark:text-slate-400 space-y-1">
-            <li>สถานที่: ลาน Sky Walk MBK Center (หน้า Backdrop)</li>
-            <li>วันแสดง: เสาร์–อาทิตย์ <strong>16, 17, 23, 24 สิงหาคม 2568</strong></li>
-          </ul>
+  <!-- HERO -->
+  <section id="home" class="relative h-[72vh] sm:h-[80vh] overflow-hidden">
+    <img id="hero" src="https://lh5.googleusercontent.com/d/1mZ5qtDTGvQaGqIiVu0LfqyDMF-JwiJaR" alt="OSOTHO & FRIENDS Garden Fair" class="absolute inset-0 w-full h-full object-cover will-change-transform" />
+    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+    <div class="relative h-full flex items-end">
+      <div class="max-w-6xl mx-auto w-full px-4 sm:px-6 pb-10 text-white">
+        <p class="uppercase tracking-widest text-xs sm:text-sm fade-up">ครั้งแรก · ฉลอง 65 ปี อ.ส.ท.</p>
+        <h1 class="text-3xl sm:text-5xl font-extrabold drop-shadow fade-up" style="transition-delay:120ms">OSOTHO & FRIENDS Garden Fair</h1>
+        <div class="mt-3 flex flex-wrap items-center gap-3 text-sm sm:text-base fade-up" style="transition-delay:220ms">
+          <span class="inline-flex items-center gap-1"><i data-lucide="calendar-days" class="w-4 h-4"></i> 15–17 ส.ค. 2568</span>
+          <span class="inline-flex items-center gap-1"><i data-lucide="clock" class="w-4 h-4"></i> 11:00–20:00 น.</span>
+          <span class="inline-flex items-center gap-1"><i data-lucide="map-pin" class="w-4 h-4"></i> มิวเซียมสยาม</span>
         </div>
-
-        <div class="relative">
-          <div class="aspect-[4/3] rounded-3xl overflow-hidden ring-1 ring-slate-200 dark:ring-slate-800 shadow-xl">
-            <img src="https://lh5.googleusercontent.com/d/1aJER0K_bKmUAogkIRO8tft80nXKeTmGT" alt="Bangkok Street Performer Community Band – MBK Center" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1511379938547-c1f69419868d?q=80&w=1600&auto=format&fit=crop';"/>
-          </div>
-          <div class="absolute -bottom-4 left-4 right-4 grid grid-cols-2 gap-3">
-            <div class="p-3 rounded-2xl bg-white/80 dark:bg-slate-800/80 backdrop-blur border border-slate-200 dark:border-slate-700 shadow animate-float">
-              <p class="text-xs text-slate-500 dark:text-slate-400">ร่วมกับ</p>
-              <p class="font-semibold">MBK Center × Young Full Band</p>
-            </div>
-            <div class="p-3 rounded-2xl bg-white/80 dark:bg-slate-800/80 backdrop-blur border border-slate-200 dark:border-slate-700 shadow animate-float [animation-delay:1s]">
-              <p class="text-xs text-slate-500 dark:text-slate-400">รูปแบบ</p>
-              <p class="font-semibold">Full Band (>= 4 สมาชิก)</p>
-            </div>
-          </div>
+        <div class="mt-4 flex gap-3 fade-up" style="transition-delay:320ms">
+          <a id="addCalendar" download="OSOTHO-GardenFair.ics" class="inline-flex items-center gap-2 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 text-sm font-semibold">
+            <i data-lucide="calendar-days" class="w-4 h-4"></i> Add to Calendar
+          </a>
+          <a href="#info" class="inline-flex items-center gap-2 rounded-full bg-white/90 text-neutral-900 hover:bg-white px-4 py-2 text-sm font-semibold">
+            <i data-lucide="ticket" class="w-4 h-4"></i> เข้าชมฟรี · รายละเอียด
+          </a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Highlights -->
-  <section class="max-w-6xl mx-auto px-4 py-12" id="highlights">
-    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-      <div class="p-5 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow hover:shadow-lg transition">
-        <p class="text-3xl font-extrabold text-cyan-600 dark:text-cyan-400">4 วัน</p>
-        <p class="text-sm text-slate-500 dark:text-slate-400">ลงได้หลายวัน หรือครบทั้ง 4 วัน</p>
+  <!-- Intro band -->
+  <section class="max-w-6xl mx-auto px-4 sm:px-6 py-10">
+    <div class="grid md:grid-cols-3 gap-4">
+      <div class="rounded-2xl bg-white dark:bg-neutral-900 border border-black/5 dark:border-white/10 p-5 shadow-sm fade-up">
+        <p class="text-lg font-semibold">รักษ์โลก</p>
+        <p class="text-sm mt-1 opacity-80">มาพบเพื่อนใหม่ แลกเปลี่ยนเรื่องราว และแรงบันดาลใจกลางพื้นที่สีเขียวของมิวเซียมสยาม</p>
       </div>
-      <div class="p-5 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow hover:shadow-lg transition">
-        <p class="text-3xl font-extrabold text-cyan-600 dark:text-cyan-400">7 ช่วง</p>
-        <p class="text-sm text-slate-500 dark:text-slate-400">ช่วงเวลาแสดงต่อวัน</p>
+      <div class="rounded-2xl bg-white dark:bg-neutral-900 border border-black/5 dark:border-white/10 p-5 shadow-sm fade-up" style="transition-delay:120ms">
+        <p class="text-lg font-semibold">ศิลปะ & เวิร์กช็อป</p>
+        <p class="text-sm mt-1 opacity-80">สนุกกับเวิร์กช็อปหมักซีอิ๊ว Eco Print โคเคดามะ และสีน้ำจากภาพถ่าย</p>
       </div>
-      <div class="p-5 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow hover:shadow-lg transition">
-        <p class="text-3xl font-extrabold text-cyan-600 dark:text-cyan-400">หลายวง/รอบ</p>
-        <p class="text-sm text-slate-500 dark:text-slate-400">แชร์อุปกรณ์ได้</p>
-      </div>
-      <div class="p-5 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow hover:shadow-lg transition">
-        <p class="text-3xl font-extrabold text-cyan-600 dark:text-cyan-400">สมัครฟรี</p>
-        <p class="text-sm text-slate-500 dark:text-slate-400">ผ่าน Google Forms</p>
+      <div class="rounded-2xl bg-white dark:bg-neutral-900 border border-black/5 dark:border-white/10 p-5 shadow-sm fade-up" style="transition-delay:220ms">
+        <p class="text-lg font-semibold">ชุมชนนักเดินทาง</p>
+        <p class="text-sm mt-1 opacity-80">แลกเปลี่ยนประสบการณ์กับเพจ/ผู้สร้างแรงบันดาลใจด้านการเดินทาง</p>
       </div>
     </div>
   </section>
 
-  <!-- Schedule -->
-  <section id="schedule" class="max-w-6xl mx-auto px-4 py-8">
-    <h3 class="text-2xl font-extrabold mb-4">ตารางวัน–เวลาแสดง</h3>
-    <p class="text-slate-600 dark:text-slate-300 mb-6">เสาร์–อาทิตย์ 16, 17, 23 และ 24 สิงหาคม 2568 @ Sky Walk MBK Center</p>
-    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-      <!-- Day cards generated by JS -->
+  <!-- MARKET -->
+  <section id="market" class="max-w-6xl mx-auto px-4 sm:px-6 py-8">
+    <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight fade-up">MARKET · ตลาดมีเรื่องเล่า</h2>
+    <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div class="rounded-2xl p-5 border border-black/5 dark:border-white/10 bg-white/90 dark:bg-neutral-900/80 shadow-sm fade-up">
+        <p class="font-semibold text-lg">ของกิน & คาเฟ่</p>
+        <p class="text-sm mt-1 opacity-80">Goodjee by สามชัยกรุ๊ป, ร้านลองเลย (จ.เลย) และอีกมากมาย</p>
+      </div>
+      <div class="rounded-2xl p-5 border border-black/5 dark:border-white/10 bg-white/90 dark:bg-neutral-900/80 shadow-sm fade-up" style="transition-delay:120ms">
+        <p class="font-semibold text-lg">คราฟต์รีไซเคิล</p>
+        <p class="text-sm mt-1 opacity-80">กระเป๋าจากวัสดุรีไซเคิล กลิ่นสีและกาวแป้งแปลงผ้าเช็ดหน้ามือสอง</p>
+      </div>
+      <div class="rounded-2xl p-5 border border-black/5 dark:border-white/10 bg-white/90 dark:bg-neutral-900/80 shadow-sm fade-up" style="transition-delay:220ms">
+        <p class="font-semibold text-lg">งานศิลป์ท้องถิ่น</p>
+        <p class="text-sm mt-1 opacity-80">เซรามิกน่ารักจากชลบุรี และสินค้ารักษ์โลก</p>
+      </div>
     </div>
   </section>
 
-  <!-- How to Apply -->
-  <section class="max-w-6xl mx-auto px-4 py-10">
+  <!-- WORKSHOPS -->
+  <section id="workshops" class="max-w-6xl mx-auto px-4 sm:px-6 py-8">
+    <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight fade-up">WORKSHOPS · เวิร์กช็อป 3 วัน</h2>
+    <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="rounded-xl p-4 bg-gradient-to-br from-white to-emerald-50 dark:from-neutral-900 dark:to-neutral-800 border border-black/5 dark:border-white/10 fade-up">ลองหมักซีอิ๊วธรรมชาติ</div>
+      <div class="rounded-xl p-4 bg-gradient-to-br from-white to-emerald-50 dark:from-neutral-900 dark:to-neutral-800 border border-black/5 dark:border-white/10 fade-up" style="transition-delay:120ms">Eco Print (พิมพ์ใบไม้บนผ้า)</div>
+      <div class="rounded-xl p-4 bg-gradient-to-br from-white to-emerald-50 dark:from-neutral-900 dark:to-neutral-800 border border-black/5 dark:border-white/10 fade-up" style="transition-delay:220ms">ปั้นโคเคดามะ ลูกบอลมอสญี่ปุ่น</div>
+      <div class="rounded-xl p-4 bg-gradient-to-br from-white to-emerald-50 dark:from-neutral-900 dark:to-neutral-800 border border-black/5 dark:border-white/10 fade-up" style="transition-delay:320ms">สีน้ำจากภาพถ่ายในนิตยสาร โดย อ.กิ้ว – Vanont</div>
+    </div>
+  </section>
+
+  <!-- TALKS -->
+  <section id="talks" class="max-w-6xl mx-auto px-4 sm:px-6 py-8">
+    <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight fade-up">FRIEND TALK · เสวนารักษ์โลก</h2>
+    <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="rounded-2xl p-5 border bg-white/90 dark:bg-neutral-900/80 border-black/5 dark:border-white/10 fade-up">
+        <p class="font-semibold">แพร – พิมพ์ลดา</p>
+        <p class="text-sm opacity-80">PEAR is Hungry · กินหมดจาน</p>
+      </div>
+      <div class="rounded-2xl p-5 border bg-white/90 dark:bg-neutral-900/80 border-black/5 dark:border-white/10 fade-up" style="transition-delay:120ms">
+        <p class="font-semibold">ธัชรวี หาริกุล</p>
+        <p class="text-sm opacity-80">Thailand Outdoor</p>
+      </div>
+      <div class="rounded-2xl p-5 border bg-white/90 dark:bg-neutral-900/80 border-black/5 dark:border-white/10 fade-up" style="transition-delay:220ms">
+        <p class="font-semibold">ปาล์ม – เบญจภพ</p>
+        <p class="text-sm opacity-80">สิชลคาบาน่า บีช รีสอร์ท</p>
+      </div>
+    </div>
+    <p class="text-sm mt-2 opacity-70">พิธีกร: ดีเจพี่อ้อย – นภาพร (Green Wave)</p>
+  </section>
+
+  <!-- MUSIC -->
+  <section id="music" class="max-w-6xl mx-auto px-4 sm:px-6 py-8">
+    <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight fade-up">MINI CONCERT · ดนตรีในสวน</h2>
+    <div class="mt-4 flex flex-wrap gap-3 fade-up">
+      <span class="inline-flex items-center gap-2 rounded-full border border-black/10 dark:border-white/10 px-3 py-1 text-sm bg-white/70 dark:bg-neutral-900/70">🎵 แมวเศษเล็บ The Voice</span>
+      <span class="inline-flex items-center gap-2 rounded-full border border-black/10 dark:border-white/10 px-3 py-1 text-sm bg-white/70 dark:bg-neutral-900/70">🎵 Thee and The Dudes</span>
+      <span class="inline-flex items-center gap-2 rounded-full border border-black/10 dark:border-white/10 px-3 py-1 text-sm bg-white/70 dark:bg-neutral-900/70">🎵 LANDOKMAI</span>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section id="gallery" class="max-w-6xl mx-auto px-4 sm:px-6 py-10">
+    <div class="flex items-center gap-2">
+      <i data-lucide="images" class="w-5 h-5"></i>
+      <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight">GALLERY · บรรยากาศงาน</h2>
+    </div>
+    <p class="text-sm mt-1 opacity-70">ภาพตัวอย่างจากข่าวประชาสัมพันธ์ โทนฟาร์มวินเทจ</p>
+    <div class="mt-4 masonry columns-2 md:columns-3">
+      <img src="https://lh5.googleusercontent.com/d/1mZ5qtDTGvQaGqIiVu0LfqyDMF-JwiJaR" class="rounded-xl shadow" alt="บรรยากาศ" />
+      <img src="https://lh5.googleusercontent.com/d/1mZ5qtDTGvQaGqIiVu0LfqyDMF-JwiJaR" class="rounded-xl shadow opacity-90" alt="บรรยากาศ" />
+      <img src="https://lh5.googleusercontent.com/d/1mZ5qtDTGvQaGqIiVu0LfqyDMF-JwiJaR" class="rounded-xl shadow opacity-80" alt="บรรยากาศ" />
+      <img src="https://lh5.googleusercontent.com/d/1mZ5qtDTGvQaGqIiVu0LfqyDMF-JwiJaR" class="rounded-xl shadow opacity-70" alt="บรรยากาศ" />
+    </div>
+  </section>
+
+  <!-- INFO -->
+  <section id="info" class="max-w-6xl mx-auto px-4 sm:px-6 py-12">
     <div class="grid md:grid-cols-2 gap-6">
-      <div class="p-6 rounded-3xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow">
-        <h4 class="text-xl font-bold mb-3">การจองพื้นที่ & การประกาศผล</h4>
-        <ol class="list-decimal pl-5 space-y-2 text-slate-600 dark:text-slate-300">
-          <li>เปิดจอง <strong>พุธ 6 สิงหาคม 2568 เวลา 18:00 น.</strong></li>
-          <li>จองวันและเวลาผ่าน Google Forms (ลิงก์ด้านบน)</li>
-          <li>ประกาศผลทาง Line หรือโทรศัพท์</li>
-          <li>ตั้งกลุ่ม Line เฉพาะกิจเพื่อประสานงานอุปกรณ์ร่วมกัน</li>
-        </ol>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSd3f2rn8N-UGV_oJpYt4AKfzUfMoeoe5uyYfzNRO3EnhpPTsw/viewform" target="_blank" rel="noopener" class="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-cyan-600 text-white hover:bg-cyan-500 transition">
-          เปิดฟอร์มสมัคร
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4"><path d="M4 4a2 2 0 012-2h6a2 2 0 012 2v3h-2V4H6v10h6v-3h2v3a2 2 0 01-2 2H6a2 2 0 01-2-2V4z"/><path d="M14.293 7.293a1 1 0 011.414 0L18 9.586a2 2 0 010 2.828l-2.293 2.293a1 1 0 11-1.414-1.414L15.586 12H9a1 1 0 110-2h6.586l-1.293-1.293a1 1 0 010-1.414z"/></svg>
+      <div class="rounded-2xl p-6 bg-white dark:bg-neutral-900 border border-black/5 dark:border-white/10 shadow-sm fade-up">
+        <h3 class="text-xl font-bold">ข้อมูลงาน</h3>
+        <ul class="mt-3 space-y-2 text-sm">
+          <li class="flex items-start gap-2"><i data-lucide="calendar-days" class="w-4 h-4 mt-0.5"></i> 15–17 สิงหาคม 2568</li>
+          <li class="flex items-start gap-2"><i data-lucide="clock" class="w-4 h-4 mt-0.5"></i> 11:00–20:00 น. (เข้าชมฟรี)</li>
+          <li class="flex items-start gap-2"><i data-lucide="map-pin" class="w-4 h-4 mt-0.5"></i> ลานอัฒจรรย์ มิวเซียมสยาม กรุงเทพฯ</li>
+        </ul>
+        <a id="addCalendar2" download="OSOTHO-GardenFair.ics" class="mt-4 inline-flex items-center gap-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 text-sm font-semibold">
+          <i data-lucide="calendar-days" class="w-4 h-4"></i> เพิ่มลงปฏิทิน
         </a>
       </div>
-
-      <div class="p-6 rounded-3xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow">
-        <h4 class="text-xl font-bold mb-3">คุณสมบัติ & ข้อกำหนด</h4>
-        <ul class="space-y-2 text-slate-600 dark:text-slate-300">
-          <li>✓ ศิลปินในโครงการ Bangkok Street Performer (ผ่านออดิชั่น & มี ID)</li>
-          <li>✓ วงดนตรีแบบ Full Band สมาชิก <strong>4 คนขึ้นไป</strong></li>
-          <li>✓ นำเครื่องเสียง/เครื่องดนตรีมาเอง ติดตั้ง–เก็บโดยไม่รบกวนรอบอื่น</li>
-          <li>✓ ระดับเสียงต้องไม่รบกวนจุดอื่น</li>
-          <li>✓ แสดงมากกว่า 1 วง ต่อการจอง 1 ครั้ง (ทุกวงเป็นศิลปินในโครงการ)</li>
-          <li>✓ ลำโพง: กลางแหลม ≤ 2, ตู้ต่ำ ≤ 2, มอนิเตอร์ ≤ 4 (In-Ear ไม่จำกัด)</li>
-          <li>✓ ปฏิบัติตามกฎแสดงเปิดหมวกของโครงการ</li>
-        </ul>
+      <div class="rounded-2xl overflow-hidden border border-black/5 dark:border-white/10 fade-up">
+        <iframe title="Museum Siam" class="w-full h-64 md:h-full" loading="lazy" src="https://www.google.com/maps?q=Museum%20Siam&output=embed"></iframe>
       </div>
     </div>
+    <p class="text-xs mt-4 opacity-60">#ONCE #Onceinlife #OSOTHO65ปี #OSOTHOandFriends #GardenFair #เที่ยวไทยไปกับอ.ส.ท. #สุขทันทีที่เที่ยวแฟร์ #65ปีอสท</p>
   </section>
 
-  <!-- Footer -->
-  <footer class="border-t border-slate-200 dark:border-slate-800">
-    <div class="max-w-6xl mx-auto px-4 py-10 grid md:grid-cols-2 gap-6 items-center">
-      <div>
-        <p class="text-sm text-slate-500 dark:text-slate-400">© 2025 Bangkok Street Performer Community Band</p>
-        <p class="text-sm text-slate-500 dark:text-slate-400">สถานที่: ลาน Sky Walk MBK Center • ติดต่อ: Line/โทร หลังประกาศผล</p>
-      </div>
-      <div class="md:text-right flex md:justify-end gap-3">
-        <a href="#highlights" class="px-4 py-2 rounded-xl border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 transition">รายละเอียด</a>
-        <a href="#schedule" class="px-4 py-2 rounded-xl border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 transition">ตารางเวลา</a>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSd3f2rn8N-UGV_oJpYt4AKfzUfMoeoe5uyYfzNRO3EnhpPTsw/viewform" target="_blank" rel="noopener" class="px-4 py-2 rounded-xl bg-cyan-600 text-white hover:bg-cyan-500 transition">สมัคร</a>
-      </div>
+  <!-- FOOTER -->
+  <footer class="mt-10 border-t border-black/5 dark:border-white/10">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-6 text-sm flex flex-col md:flex-row items-center justify-between gap-3">
+      <p>© 2025 OSOTHO & FRIENDS · Garden Fair</p>
+      <div class="opacity-70">Design vibe inspired by rustic farm websites.</div>
     </div>
   </footer>
 
-  <!-- JSON-LD (SEO) -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "MusicEvent",
-    "name": "Bangkok Street Performer Community Band – August 2025",
-    "location": {
-      "@type": "Place",
-      "name": "Sky Walk, MBK Center",
-      "address": "Bangkok, Thailand"
-    },
-    "startDate": "2025-08-16T14:00:00+07:00",
-    "endDate": "2025-08-24T20:45:00+07:00",
-    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-    "eventStatus": "https://schema.org/EventScheduled",
-    "image": ["https://lh5.googleusercontent.com/d/1aJER0K_bKmUAogkIRO8tft80nXKeTmGT"],
-    "description": "Subproject ร่วมกับ MBK Center x Young Full Band Music Festival – เปิดรับวง Full Band (>= 4 คน) สมัครได้หลายวันหรือครบทั้ง 4 วัน",
-    "organizer": {
-      "@type": "Organization",
-      "name": "Bangkok Street Performer",
-      "url": "https://visit.bangkok.go.th/th"
-    }
-  }
-  </script>
+  <!-- Sticky CTA on mobile -->
+  <div class="md:hidden fixed bottom-3 inset-x-3 z-50">
+    <a id="addCalendar3" download="OSOTHO-GardenFair.ics" class="flex items-center justify-center gap-2 rounded-full bg-emerald-600 text-white py-3 shadow-xl">
+      <i data-lucide="calendar-days" class="w-5 h-5"></i> เพิ่มลงปฏิทิน
+    </a>
+  </div>
 
-  <!-- Scripts -->
   <script>
-    // Dark mode toggle
-    document.getElementById('themeToggle').addEventListener('click', () => {
-      const html = document.documentElement;
-      const isDark = html.classList.toggle('dark');
+    // Lucide init
+    lucide.createIcons();
+
+    // Dark mode toggle (persist)
+    const btn = document.getElementById('themeToggle');
+    const root = document.documentElement;
+    const saved = localStorage.getItem('theme');
+    if (saved === 'dark') root.classList.add('dark');
+    if (saved === 'dark') btn.querySelector('span') && (btn.querySelector('span').textContent = 'Light');
+    if (saved === 'dark') btn.querySelector('i') && btn.querySelector('i').setAttribute('data-lucide', 'sun-medium');
+    btn.addEventListener('click', () => {
+      root.classList.toggle('dark');
+      const isDark = root.classList.contains('dark');
       localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      const span = btn.querySelector('span');
+      if (span) span.textContent = isDark ? 'Light' : 'Dark';
+      const icon = btn.querySelector('i');
+      if (icon) { icon.setAttribute('data-lucide', isDark ? 'sun-medium' : 'moon'); lucide.createIcons(); }
     });
 
-    // Schedule generator
-    const scheduleContainer = document.querySelector('#schedule .grid');
-    const days = [
-      { d: 'เสาร์', date: '16 ส.ค. 2568' },
-      { d: 'อาทิตย์', date: '17 ส.ค. 2568' },
-      { d: 'เสาร์', date: '23 ส.ค. 2568' },
-      { d: 'อาทิตย์', date: '24 ส.ค. 2568' },
-    ];
+    // Parallax hero
+    const hero = document.getElementById('hero');
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      hero.style.transform = `translateY(${y * -0.2}px) scale(${1 + Math.min(y/5000, .02)})`;
+    }, { passive: true });
 
-    const slots = [
-      '14:00 – 14:45',
-      '15:00 – 15:45',
-      '16:00 – 16:15',
-      '17:00 – 17:15',
-      '18:00 – 18:45',
-      '19:00 – 19:45',
-      '20:00 – 20:45',
-    ];
+    // On-view fade-up
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) e.target.classList.add('show');
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.fade-up').forEach(el => io.observe(el));
 
-    days.forEach(({d, date}) => {
-      const card = document.createElement('div');
-      card.className = 'rounded-3xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow hover:shadow-xl transition p-5 flex flex-col';
-      card.innerHTML = `
-        <div class="flex items-center justify-between">
-          <div>
-            <p class="text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400">${d}</p>
-            <h5 class="text-lg font-bold">${date}</h5>
-          </div>
-          <span class="px-2 py-1 text-xs rounded-full bg-cyan-100 text-cyan-700 dark:bg-cyan-900/40 dark:text-cyan-300">7 ช่วง</span>
-        </div>
-        <ul class="mt-4 space-y-2">
-          ${slots.map((t) => `<li class=\"flex items-center justify-between px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-700\">
-            <span>${t}</span>
-            <a href=\"https://docs.google.com/forms/d/e/1FAIpQLSd3f2rn8N-UGV_oJpYt4AKfzUfMoeoe5uyYfzNRO3EnhpPTsw/viewform\" target=\"_blank\" rel=\"noopener\" class=\"text-sm px-3 py-1 rounded-lg bg-cyan-600 text-white hover:bg-cyan-500 transition\">จอง</a>
-          </li>`).join('')}
-        </ul>`;
-      scheduleContainer.appendChild(card);
-    });
+    // ICS generator (works offline)
+    function makeIcs() {
+      const title = 'OSOTHO & FRIENDS Garden Fair (65 ปี อ.ส.ท.)';
+      const desc = 'งานแฟร์รักษ์โลก OSOTHO & FRIENDS Garden Fair ที่มิวเซียมสยาม 15–17 ส.ค. 2568 เวลา 11:00–20:00 เข้าชมฟรี';
+      const loc = 'ลานอัฒจรรย์ มิวเซียมสยาม, กรุงเทพฯ';
+      const ics = `BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//OSOTHO//GardenFair//TH\nCALSCALE:GREGORIAN\nMETHOD:PUBLISH\nBEGIN:VEVENT\nUID:${Date.now()}@osotho65\nDTSTAMP:20250808T050000Z\nDTSTART:20250815T110000\nDTEND:20250817T200000\nSUMMARY:${title}\nLOCATION:${loc}\nDESCRIPTION:${desc}\nBEGIN:VALARM\nTRIGGER:-PT24H\nACTION:DISPLAY\nDESCRIPTION:เตือนงาน OSOTHO & FRIENDS Garden Fair พรุ่งนี้\nEND:VALARM\nEND:VEVENT\nEND:VCALENDAR`;
+      return 'data:text/calendar;charset=utf-8,' + encodeURIComponent(ics);
+    }
+    const href = makeIcs();
+    document.getElementById('addCalendar').setAttribute('href', href);
+    document.getElementById('addCalendar2').setAttribute('href', href);
+    document.getElementById('addCalendar3').setAttribute('href', href);
   </script>
-
-  <!-- Reference blocks (optional copy-paste for other stacks) -->
-  <section class="max-w-6xl mx-auto px-4 pb-20">
-    <details class="rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow p-4">
-      <summary class="cursor-pointer font-semibold">ต้องการใช้ Stack อื่น? (Node.js / PHP / XML / React Native ตัวอย่าง)</summary>
-      <div class="mt-4 space-y-6 text-sm">
-        <div>
-          <p class="font-bold">Node.js (Express) – เสิร์ฟไฟล์สแตติก</p>
-<pre class="overflow-auto p-3 bg-slate-900 text-slate-100 rounded-xl text-xs"><code>// server.js
-import express from 'express';
-const app = express();
-app.use(express.static('public')); // ใส่ไฟล์หน้านี้ในโฟลเดอร์ public
-app.listen(3000, () => console.log('Running at http://localhost:3000'));</code></pre>
-        </div>
-        <div>
-          <p class="font-bold">PHP – ฝังในหน้า (สำหรับโฮสต์ที่รองรับ PHP)</p>
-<pre class="overflow-auto p-3 bg-slate-900 text-slate-100 rounded-xl text-xs"><code>&lt;?php // ตัวอย่างตรวจเวลาประชาสัมพันธ์
-$tz = new DateTimeZone('Asia/Bangkok');
-$now = new DateTime('now', $tz);
-echo "&lt;!-- Now: ".$now->format('Y-m-d H:i:s')." --&gt;";
-?&gt;</code></pre>
-        </div>
-        <div>
-          <p class="font-bold">XML – ฟีดกำหนดการอย่างย่อ</p>
-<pre class="overflow-auto p-3 bg-slate-900 text-slate-100 rounded-xl text-xs"><code>&lt;events&gt;
-  &lt;event date="2025-08-16" venue="Sky Walk MBK"/&gt;
-  &lt;event date="2025-08-17" venue="Sky Walk MBK"/&gt;
-  &lt;event date="2025-08-23" venue="Sky Walk MBK"/&gt;
-  &lt;event date="2025-08-24" venue="Sky Walk MBK"/&gt;
-&lt;/events&gt;</code></pre>
-        </div>
-        <div>
-          <p class="font-bold">React Native – ปุ่มลิงก์สมัคร (ตัวอย่าง)</p>
-<pre class="overflow-auto p-3 bg-slate-900 text-slate-100 rounded-xl text-xs"><code>import { Linking, Pressable, Text, View } from 'react-native';
-export default function ApplyButton(){
-  return (
-    &lt;View style={{ padding: 12 }}&gt;
-      &lt;Pressable onPress={() => Linking.openURL('https://docs.google.com/forms/d/e/1FAIpQLSd3f2rn8N-UGV_oJpYt4AKfzUfMoeoe5uyYfzNRO3EnhpPTsw/viewform')} style={{ backgroundColor: '#0891b2', padding: 12, borderRadius: 12 }}&gt;
-        &lt;Text style={{ color: 'white', textAlign: 'center', fontWeight: '700' }}&gt;สมัคร / จองเวลา&lt;/Text&gt;
-      &lt;/Pressable&gt;
-    &lt;/View&gt;
-  );
-}</code></pre>
-        </div>
-      </div>
-    </details>
-  </section>
 </body>
 </html>
